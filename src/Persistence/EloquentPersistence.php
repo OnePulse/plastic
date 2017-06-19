@@ -97,7 +97,7 @@ class EloquentPersistence
      *
      * @return mixed
      */
-    public function update()
+    public function update($scripted=false)
     {
         $this->exitIfModelNotSet();
 
@@ -115,6 +115,10 @@ class EloquentPersistence
                 'doc' => $document,
             ],
         ];
+        
+        if($scripted){
+            $params['body']=$document;
+        }
 
         return $this->connection->updateStatement($params);
     }
